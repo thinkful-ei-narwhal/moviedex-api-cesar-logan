@@ -24,21 +24,26 @@ console.log(process.env.API_TOKEN);
 //   }
 //   next();
 // });
-  
-app.get('/movie',(req,res)=>{
-  const {genre,country} = req.query;
-  let results=null;
+
+app.get('/movie', (req, res) => {
+  const { genre, country, avg_vote } = req.query;
+  let results = null;
 
   if (genre) {
-    results= moviesData.filter(app=>
+    results = moviesData.filter(app =>
       app.genre.toLocaleLowerCase().includes(genre.toLocaleLowerCase())
     );
   }
 
   if (country) {
-    results= results.filter(app=>
+    results = results.filter(app =>
       app.country.toLocaleLowerCase().includes(country.toLocaleLowerCase())
     );
+  }
+
+  if (avg_vote) {
+    results = results.filter(app =>
+      Number(app.avg_vote) >= Number(avg_vote));
   }
 
   res.json(results);
