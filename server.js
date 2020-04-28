@@ -27,10 +27,10 @@ console.log(process.env.API_TOKEN);
 
 app.get('/movie', (req, res) => {
   const { genre, country, avg_vote } = req.query;
-  let results = null;
+  let results = moviesData;
 
   if (genre) {
-    results = moviesData.filter(app =>
+    results = results.filter(app =>
       app.genre.toLocaleLowerCase().includes(genre.toLocaleLowerCase())
     );
   }
