@@ -26,12 +26,18 @@ console.log(process.env.API_TOKEN);
 // });
   
 app.get('/movie',(req,res)=>{
-  const {genre} = req.query;
+  const {genre,country} = req.query;
   let results=null;
 
   if (genre) {
     results= moviesData.filter(app=>
       app.genre.toLocaleLowerCase().includes(genre.toLocaleLowerCase())
+    );
+  }
+
+  if (country) {
+    results= results.filter(app=>
+      app.country.toLocaleLowerCase().includes(country.toLocaleLowerCase())
     );
   }
 
